@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeRoomPlanner", "EscapeRoomPlanner\EscapeRoomPlanner.csproj", "{35608E7D-07C5-4286-9DB0-1FC4C3FDDE79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeRoomPlanner.Data.EntityFramework", "EscapeRoomPlanner.Data.EntityFramework\EscapeRoomPlanner.Data.EntityFramework.csproj", "{D32C39D4-43DD-4666-940F-D19183408FD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{35608E7D-07C5-4286-9DB0-1FC4C3FDDE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35608E7D-07C5-4286-9DB0-1FC4C3FDDE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35608E7D-07C5-4286-9DB0-1FC4C3FDDE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32C39D4-43DD-4666-940F-D19183408FD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32C39D4-43DD-4666-940F-D19183408FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32C39D4-43DD-4666-940F-D19183408FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32C39D4-43DD-4666-940F-D19183408FD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
