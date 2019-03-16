@@ -21,7 +21,7 @@ namespace EscapeRoomPlanner.Controllers
         // GET
         public async Task<IActionResult> Index()
         {
-            _dataSeeder.SeedData();
+            //_dataSeeder.SeedData();
 
             var rooms = await _roomRepository.GetAllRoomsAsync();
 

@@ -5,5 +5,8 @@
     "gulp-cssmin": "0.2.0",
     "gulp-uglify": "3.0.0",
     "rimraf": "2.6.1"
+  },
+  "dependencies": {
+    "bootstrap-datepicker": "^1.8.0"
   }
 }
