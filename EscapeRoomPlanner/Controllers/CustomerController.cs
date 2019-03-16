@@ -1,4 +1,5 @@
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
+using EscapeRoomPlanner.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EscapeRoomPlanner.Controllers
@@ -12,14 +13,14 @@ namespace EscapeRoomPlanner.Controllers
             _CustomerRepository = customerRepository;
         }
 
-        public IActionResult Save()
+        public IActionResult New()
         {
-            var customer = _CustomerRepository.GetAllCustomersAsync();
+            return View("Save");
+        }
 
-            if (customer == null)
-            {
-                return NotFound();
-            }
+        public IActionResult Save(NewReservationVM newReservationVm)
+        {
+            var test = newReservationVm;
 
             return View();
         }

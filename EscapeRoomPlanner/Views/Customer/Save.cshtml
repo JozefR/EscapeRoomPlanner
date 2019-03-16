@@ -1,4 +1,4 @@
-@model EscapeRoomPlanner.Data.EntityFramework.Models.Customer
+@model EscapeRoomPlanner.ViewModel.NewReservationVM
 
 @{
     ViewBag.Title = "title";
@@ -29,15 +29,12 @@
                     @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                    @Html.LabelFor(m => m.Description)
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = "5"})
                 </div>
-
-                @Html.HiddenFor(m => m.Id)
 
                 <button type="submit" class="btn btn-primary">Create booking</button>
             }
-
         </div>
     </div>
 </div>
