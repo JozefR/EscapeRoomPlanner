@@ -1,3 +1,4 @@
+using System;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -17,6 +18,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework
                 options.UseSqlServer(connection);
             });
 
+            services.AddTransient<IDataSeeder, DataSeeder>();
             services.AddTransient<IRoomRepository, RoomRepository>();
 
             return services;
