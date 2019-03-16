@@ -1,0 +1,24 @@
+@model EscapeRoomPlanner.Data.EntityFramework.Models.Room
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Name</h2>
+<p>@Model.Description</p>
+<hr>
+
+<div class="input-group date" data-provide="datepicker">
+    <input type="text" class="form-control">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $('.datepicker').datepicker();
+    </script>
+}

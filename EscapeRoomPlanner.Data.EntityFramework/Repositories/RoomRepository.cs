@@ -8,6 +8,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
     public interface IRoomRepository
     {
         Task<List<Room>> GetAllRoomsAsync();
+        Task<Room> GetRoomByIdAsync(int id);
     }
 
     public class RoomRepository : IRoomRepository
@@ -26,6 +27,15 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
                 .ToListAsync();
 
             return rooms;
+        }
+
+        public async Task<Room> GetRoomByIdAsync(int id)
+        {
+            var room = await _db.Room
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            return room;
         }
     }
 }

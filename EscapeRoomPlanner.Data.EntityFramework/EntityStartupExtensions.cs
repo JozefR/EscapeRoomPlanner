@@ -20,6 +20,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
             services.AddTransient<IDataSeeder, DataSeeder>();
             services.AddTransient<IRoomRepository, RoomRepository>();
+            services.AddTransient<IReservationRepository, ReservationRepository>();
 
             return services;
         }
