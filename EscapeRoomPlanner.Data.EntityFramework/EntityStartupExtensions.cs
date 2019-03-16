@@ -1,5 +1,7 @@
 using EscapeRoomPlanner.Data.EntityFramework.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EscapeRoomPlanner.Data.EntityFramework

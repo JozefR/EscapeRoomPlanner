@@ -1,6 +1,7 @@
+using EscapeRoomPlanner.Data.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EscapeRoomPlanner.Data.EntityFramework.Models
+namespace EscapeRoomPlanner.Data.EntityFramework
 {
     public class ApplicationDbContext : DbContext
     {
