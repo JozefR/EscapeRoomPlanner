@@ -50,11 +50,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<int>("RoomId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Reservations");
                 });
@@ -76,14 +72,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("EscapeRoomPlanner.Data.EntityFramework.Models.Reservation", b =>
-                {
-                    b.HasOne("EscapeRoomPlanner.Data.EntityFramework.Models.Room", "Room")
-                        .WithMany("Reservations")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
