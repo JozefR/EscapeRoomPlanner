@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EscapeRoomPlanner.Data.EntityFramework.Models
 {
@@ -13,5 +14,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
         public int OpeningTime { get; set; }
 
         public int ClosingTime { get; set; }
+
+        public List<Reservation> Reservations { get; set; }
     }
 }
