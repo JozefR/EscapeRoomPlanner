@@ -32,6 +32,8 @@ namespace EscapeRoomPlanner
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.ConfigureDbConnections();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -57,7 +59,7 @@ namespace EscapeRoomPlanner
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Room}/{action=Index}/{id?}");
             });
         }
     }
