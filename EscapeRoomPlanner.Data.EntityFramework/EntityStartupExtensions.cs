@@ -1,23 +1,22 @@
-using EscapeRoomPlanner.Data.EntityFramework.Models;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace EscapeRoomPlanner.Data.EntityFramework
 {
     public static class EntityStartupExtensions
     {
-        public static IServiceCollection ConfigureDbConnections(this IServiceCollection services) {
-
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=escapeRoomPlanner.db;Trusted_Connection=True;ConnectRetryCount=0";
-
-            services.AddDbContext<ApplicationDbContext>(options =>
+        public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+        {
+            public ApplicationDbContext CreateDbContext(string[] args)
             {
-                options.UseSqlServer(connection);
-            });
+                var dbContextBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            return services;
+                var connection = @"Server=(localdb)\mssqllocaldb;Database=escapeRoomPlanner.db;Trusted_Connection=True;ConnectRetryCount=0";
+
+                dbContextBuilder.UseSqlServer(connection);
+
+                return new ApplicationDbContext(dbContextBuilder.Options);
+            }
         }
     }
 }
