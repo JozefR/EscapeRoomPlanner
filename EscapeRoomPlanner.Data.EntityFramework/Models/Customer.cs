@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EscapeRoomPlanner.Data.EntityFramework.Models
 {
     public class Customer
@@ -11,5 +13,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public List<Reservation> Reservations { get; set; }
     }
 }
