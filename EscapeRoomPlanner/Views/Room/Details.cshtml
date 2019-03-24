@@ -9,7 +9,7 @@
 <p>@Model.Description</p>
 <hr>
 
-<div class="col-12">
+<div class="col-12" id="roomReservation">
     <div class="row">
         <div class="col-3">
             Date
@@ -41,6 +41,7 @@
     <div class="row">
         <div class="col-12">
             <a asp-action="Index" asp-controller="Room" class="btn btn-secondary btn-sm p-2" style="width: 10rem">Back</a>
+            <a class="btn btn-success float-right js-new-reservation" style="width: 10rem">Next</a>
             <a asp-action="New" asp-controller="Customer" class="btn btn-success float-right" style="width: 10rem">Next</a>
         </div>
     </div>
@@ -50,6 +51,24 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $('.datepicker').datepicker();
+        $(document).ready(function() {
+            $('.datepicker').datepicker();
+
+            var test = @Json.Serialize(@Model);
+
+            $("#roomReservation").on("click",
+                ".js-new-reservation",
+                function() {
+                    $.ajax({
+                        type: "POST",
+                        data: JSON.stringify(test),
+                        url: "/customer/new",
+                        contentType: "application/json"
+                    }).done(function (res) {
+                        $("#SomeDivToShowTheResult").html(res);
+                    });
+                });
+        });
+
     </script>
 }

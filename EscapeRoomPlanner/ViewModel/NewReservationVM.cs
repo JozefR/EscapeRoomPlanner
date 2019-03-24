@@ -1,3 +1,5 @@
+using EscapeRoomPlanner.Data.EntityFramework.Models;
+
 namespace EscapeRoomPlanner.ViewModel
 {
     public class NewReservationVM
@@ -11,5 +13,7 @@ namespace EscapeRoomPlanner.ViewModel
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public Room Room { get; set; }
     }
 }

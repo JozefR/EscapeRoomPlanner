@@ -15,6 +15,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
 
         public int ClosingTime { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }
