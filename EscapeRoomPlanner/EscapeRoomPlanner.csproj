@@ -14,6 +14,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EscapeRoomPlanner.Data.EntityFramework\EscapeRoomPlanner.Data.EntityFramework.csproj" />
+      <ProjectReference Include="..\EscapeRoomPlanner.DTO\EscapeRoomPlanner.DTO.csproj" />
     </ItemGroup>
 
 </Project>

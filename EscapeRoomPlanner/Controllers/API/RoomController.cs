@@ -9,6 +9,7 @@ Obě metody budou vracet JSON jehož strukturu navrhněte samostatně stejně ta
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using EscapeRoomPlanner.Data.EntityFramework.Infrastructure;
@@ -56,7 +57,12 @@ namespace EscapeRoomPlanner.Controllers.API
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
-            if (!DateTime.TryParse(selectedDate, out DateTime dateTime))
+            if (!DateTime.TryParseExact(
+                selectedDate,
+                "dd.MM.yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime dateTime))
             {
                 return BadRequest("Bad date format");
             };

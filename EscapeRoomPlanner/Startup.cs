@@ -60,6 +60,13 @@ namespace EscapeRoomPlanner
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Room}/{action=Index}/{id?}");
+
+                // New code to handle requests like '/Users/1/BuyProduct/2'
+                routes.MapRoute(
+                    // Name of the new route, we'll need it later to generate URLs in the templates
+                    name: "default",
+                    // Route pattern
+                    template: "{controller}/{action}/{id}/{selectedDate}");
             });
         }
     }

@@ -14,8 +14,8 @@
     <div class="row">
         <div class="col-3">
             Date
-            <div class="input-group date" data-provide="datepicker">
-                <input type="text" class="form-control">
+            <div class="input-group date" class="datepicker" data-date-format="dd.mm.yyyy" data-provide="datepicker">
+                <input type="text" class="form-control dateChange">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -23,9 +23,9 @@
             <br/>
         </div>
 
-            <div class="col-9" id="availableRoomsAsync">
-                <h2 style="text-align: center">Loading...</h2>
-            </div>
+        <div class="col-9" id="availableRoomsAsync">
+            <h2 style="text-align: center">Choose date!</h2>
+        </div>
     </div>
 
     <hr>
@@ -44,9 +44,15 @@
 {
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datepicker').datepicker();
+            $('.datepicker').datepicker({});
 
-            var test = @Json.Serialize(@Model);
+            $('.dateChange').on("change", function(e) {
+                $("#availableRoomsAsync").html("<h2 style='text-align: center'>Loading...</h2>");
+                const date = $('.dateChange').val();
+                getAvailableRooms(date);
+            });
+
+            var test = @Json.Serialize(Model);
 
             $("#roomReservation").on("click",
                 ".js-new-reservation",
@@ -60,15 +66,11 @@
                         $("#SomeDivToShowTheResult").html(res);
                     });
                 });
-
-            setTimeout(function () {
-                getAvailableRooms();
-            }, 1500);
         });
 
-        function getAvailableRooms() {
+        function getAvailableRooms(selectedDate) {
             $.ajax({
-                url: "/api/room/" + 3 + "/" + "11.11.2018",
+                url: "/room/Available/" + @Model.Id + "/" + selectedDate,
                 method: "GET",
                 success: function(result) {
                     $("#availableRoomsAsync").html(result);

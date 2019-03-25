@@ -49,8 +49,8 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
             for (int i = 0; i < numberOfrooms; i++)
             {
-                var open = random.Next(12);
-                var close = random.Next(12);
+                var open = random.Next(6, 16);
+                var close = random.Next(8);
                 var descriptions = roomDescriptions.Split(".")
                     .OrderBy(item => random.Next(roomDescriptions.Length))
                     .Take(random.Next(1, 4))

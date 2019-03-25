@@ -1,3 +1,5 @@
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using EscapeRoomPlanner.Data.EntityFramework;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
@@ -40,9 +42,20 @@ namespace EscapeRoomPlanner.Controllers
             return View(room);
         }
 
-        public async Task<IActionResult> AvailableRoom(int id, string selectedDate)
+        [HttpGet]
+        [Route("/Room/Available/{roomId}/{selectedDate}")]
+        public async Task<ActionResult> AvailableRoom(int roomId, string selectedDate)
         {
+            using(HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri($"https://localhost:5001");
 
+                HttpResponseMessage response = client.GetAsync($"/api/room/{roomId}/{selectedDate}").Result;
+
+                response.EnsureSuccessStatusCode();
+
+                return View("Shared/_roomAvailableHours", await response.Content.ReadAsAsync<DTO.Room>());
+            }
         }
     }
 }
