@@ -49,7 +49,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
             for (int i = 0; i < numberOfrooms; i++)
             {
-                var times = random.Next(24);
+                var times = random.Next(12);
                 var descriptions = roomDescriptions.Split(".")
                     .OrderBy(item => random.Next(roomDescriptions.Length))
                     .Take(random.Next(1, 4))
@@ -60,7 +60,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework
                     Name = names[random.Next(names.Length - 1)],
                     Description = string.Concat(descriptions),
                     OpeningTime = times,
-                    ClosingTime = times + 1,
+                    ClosingTime = times + times,
                 };
 
                 db.Add(room);

@@ -14,6 +14,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
 
         public string PhoneNumber { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

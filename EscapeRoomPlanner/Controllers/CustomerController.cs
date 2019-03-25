@@ -30,7 +30,7 @@ namespace EscapeRoomPlanner.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(NewReservationVM newReservationVm)
+        public ActionResult Save(NewReservationVM newReservationVm)
         {
             var customer = new Customer
             {
