@@ -9,6 +9,7 @@ Obě metody budou vracet JSON jehož strukturu navrhněte samostatně stejně ta
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EscapeRoomPlanner.Data.EntityFramework.Infrastructure;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
@@ -30,9 +31,19 @@ namespace EscapeRoomPlanner.Controllers.API
          * Na zaklade datumu ako input parametru vrat vsetky rooms a dostupne rezervacie v dany datum
          * a konkretny cas.
          */
-        public IActionResult Index()
+         [Route("{selectedDate}")]
+        public async Task<IActionResult> Get([FromRoute]string selectedDate)
         {
-            return null;
+            var rooms = await _roomRepository.GetAllRoomsAsync();
+
+            if (!DateTime.TryParse(selectedDate, out DateTime dateTime))
+            {
+                return BadRequest("Bad date format");
+            };
+
+            var availableRooms = rooms.Select(r => r.MapRoomResponse(dateTime));
+
+            return Ok(availableRooms);
         }
 
         /*
@@ -45,7 +56,10 @@ namespace EscapeRoomPlanner.Controllers.API
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
-            DateTime.TryParse(selectedDate, out DateTime dateTime);
+            if (!DateTime.TryParse(selectedDate, out DateTime dateTime))
+            {
+                return BadRequest("Bad date format");
+            };
 
             var availableHours = room.MapRoomResponse(dateTime);
 
@@ -67,10 +81,5 @@ namespace EscapeRoomPlanner.Controllers.API
         {
 
         }
-
-        /*
-         * Od otvaracej hodiny potrebujem hodinovy interval dostupnych ,,casov,,.
-         */
-
     }
 }
