@@ -1,0 +1,39 @@
+@model EscapeRoomPlanner.Data.EntityFramework.Models.Room
+
+    <div class="col-9">
+        Free Hours
+        <div class="card-columns">
+            @for (int i = 0; i < 10; i++)
+            {
+                <div class="card">
+                    <div class="card-body" style="padding: 0.25rem;">
+                        <p style="text-align: center">12:00</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var test = @Json.Serialize(@Model);
+
+            $("#roomReservation").on("click",
+                ".js-new-reservation",
+                function() {
+                    $.ajax({
+                        type: "POST",
+                        data: JSON.stringify(test),
+                        url: "/customer/new",
+                        contentType: "application/json"
+                    }).done(function(res) {
+                        $("#SomeDivToShowTheResult").html(res);
+                    });
+                });
+        });
+    </script>
+}

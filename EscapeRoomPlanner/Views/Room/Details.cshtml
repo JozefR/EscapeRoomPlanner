@@ -10,6 +10,7 @@
 <hr>
 
 <div class="col-12" id="roomReservation">
+
     <div class="row">
         <div class="col-3">
             Date
@@ -21,19 +22,10 @@
             </div>
             <br/>
         </div>
-        <div class="col-9">
-            Free Hour
-            <div class="card-columns">
-                @for (int i = 0; i < 10; i++)
-                {
-                    <div class="card">
-                        <div class="card-body" style="padding: 0.25rem;">
-                            <p style="text-align: center">12:00</p>
-                        </div>
-                    </div>
-                }
+
+            <div class="col-9" id="availableRoomsAsync">
+                <h2 style="text-align: center">Loading...</h2>
             </div>
-        </div>
     </div>
 
     <hr>
@@ -64,11 +56,27 @@
                         data: JSON.stringify(test),
                         url: "/customer/new",
                         contentType: "application/json"
-                    }).done(function (res) {
+                    }).done(function(res) {
                         $("#SomeDivToShowTheResult").html(res);
                     });
                 });
+
+            setTimeout(function () {
+                getAvailableRooms();
+            }, 1500);
         });
 
+        function getAvailableRooms() {
+            $.ajax({
+                url: "/api/room/" + 3 + "/" + "11.11.2018",
+                method: "GET",
+                success: function(result) {
+                    $("#availableRoomsAsync").html(result);
+                },
+                error: function(error) {
+                    console.log("Nepodarilo sa nacitat data" + error);
+                }
+            });
+        }
     </script>
 }

@@ -39,5 +39,10 @@ namespace EscapeRoomPlanner.Controllers
 
             return View(room);
         }
+
+        public async Task<IActionResult> AvailableRoom(int id, string selectedDate)
+        {
+
+        }
     }
 }
