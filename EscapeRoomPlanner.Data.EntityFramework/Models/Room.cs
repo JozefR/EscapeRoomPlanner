@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using EscapeRoomPlanner.DTO;
 
 namespace EscapeRoomPlanner.Data.EntityFramework.Models
 {
@@ -40,19 +41,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
             }
 
             return availableHours;
-        }
-    }
-
-    [NotMapped]
-    public class AvailableHour
-    {
-        public int Open;
-        public int Close;
-
-        public AvailableHour(int open, int close)
-        {
-            Open = open;
-            Close = close;
         }
     }
 }

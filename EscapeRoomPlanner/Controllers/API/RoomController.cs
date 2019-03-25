@@ -10,6 +10,7 @@ Obě metody budou vracet JSON jehož strukturu navrhněte samostatně stejně ta
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EscapeRoomPlanner.Data.EntityFramework.Infrastructure;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,18 +39,16 @@ namespace EscapeRoomPlanner.Controllers.API
          * Analogicky, pre konkretnu miestnost. Na detaile budem mat konkretnu miestnost a casy ktore
          * su dostupne pre dany datum. Input bude id miestnosti a datum.
          */
-        [Route("{roomId:int}")]
+        [Route("{roomId}/{selectedDate}")]
         [HttpGet]
-        public async Task<ActionResult> Get([FromRoute]int roomId, [FromRoute]DateTime selectedDate)
+        public async Task<ActionResult> Get([FromRoute]int roomId, [FromRoute]string selectedDate)
         {
-            // Ziskaj danu miestnost.
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
-            // Najdi rezervacie pre dany datum.
+            DateTime.TryParse(selectedDate, out DateTime dateTime);
 
-            var availableHours = room.AvailableHours(selectedDate);
+            var availableHours = room.MapRoomResponse(dateTime);
 
-            // Zobraz dostupne casy pre dany den. TODO: ako zobrazit interval casov?
             return Ok(availableHours);
         }
 
