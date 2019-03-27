@@ -5,7 +5,9 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
 {
     public interface ICustomerReservationRepository
     {
-        Task Save(Customer customer, Reservation reservation);
+        Task UpdateCustomer(Customer customer);
+        Task UpdateReservation(Reservation customer);
+        Task Save();
     }
 
     public class CustomerReservationRepository : ICustomerReservationRepository
@@ -17,10 +19,18 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
             _db = db;
         }
 
-        public async Task Save(Customer customer, Reservation reservation)
+        public async Task UpdateCustomer(Customer customer)
         {
+            await _db.AddAsync(customer);
+        }
 
+        public async Task UpdateReservation(Reservation customer)
+        {
+            await _db.AddAsync(customer);
+        }
 
+        public async Task Save()
+        {
             await _db.SaveChangesAsync();
         }
     }

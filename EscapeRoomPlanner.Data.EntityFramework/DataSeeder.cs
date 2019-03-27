@@ -14,7 +14,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework
     {
         private readonly IServiceProvider _Services;
 
-
         public DataSeeder(IServiceProvider services)
         {
             _Services = services;

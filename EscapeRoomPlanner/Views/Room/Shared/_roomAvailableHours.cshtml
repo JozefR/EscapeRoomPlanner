@@ -1,3 +1,5 @@
+@using EscapeRoomPlanner.ViewHelpers
+@using Microsoft.EntityFrameworkCore.Internal
 @model EscapeRoomPlanner.DTO.Room
 
 @{
@@ -5,13 +7,21 @@
 }
 
 Available Hours
-<div class="card-columns">
-    @foreach (var avaHour in @Model.AvailableHours)
-    {
+@if (@Model.AvailableHours.Any())
+{
+    <div class="card-columns">
+       @foreach (var avaHour in @Model.AvailableHours)
+        {
         <div class="card">
-            <div class="card-body" style="padding: 0.25rem;">
-                <p style="text-align: center">@avaHour.Open:@avaHour.Close</p>
+            <div class="card-body" value="@avaHour.Open" style="padding: 0.25rem; text-align: center">
+                <a href="" class="js-selected-room-hour" style="color: black">@(@avaHour.Open.intToTime()) - @avaHour.Close.intToTime()</a>
             </div>
         </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <h3 style="text-align: center">Nothing available today!</h3>
+}
+

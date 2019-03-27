@@ -1,3 +1,4 @@
+@using EscapeRoomPlanner.ViewHelpers
 @model EscapeRoomPlanner.ViewModel.NewReservationVM
 
 @{
@@ -6,6 +7,7 @@
 }
 
 <h2>Customer details</h2>
+<h5>Booking room: @Model.RoomName on @Model.SelectedDate @Model.SelectedOpenTime.intToTime()- @Model.SelectedCloseTime.intToTime()</h5>
 
 <div class="12">
     <div class="row">
@@ -14,24 +16,34 @@
             {
                 <div class="form-group">
                     @Html.LabelFor(m => m.FirstName)
-                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.FirstName)
+
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.SecondName)
-                    @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.SecondName, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.SecondName)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.PhoneNumber)
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.PhoneNumber, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.PhoneNumber)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Description)
-                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = "5"})
+                    @Html.TextAreaFor(m => m.Description, new {@class = "form-control", @rows = "5"})
+                    @Html.ValidationMessageFor(m => m.Description)
                 </div>
+                @Html.HiddenFor(m => m.RoomId)
+                @Html.HiddenFor(m => m.SelectedDate)
+                @Html.HiddenFor(m => m.SelectedOpenTime)
+                @Html.AntiForgeryToken()
+
                 <button type="submit" class="btn btn-primary">Create booking</button>
             }
         </div>

@@ -89,7 +89,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EscapeRoomPlanner.Data.EntityFramework.Models.Room", "Room")
+                    b.HasOne("EscapeRoomPlanner.Data.EntityFramework.Models.Room")
                         .WithMany("Reservations")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);

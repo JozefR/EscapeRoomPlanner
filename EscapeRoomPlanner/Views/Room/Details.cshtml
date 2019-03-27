@@ -1,3 +1,4 @@
+@using EscapeRoomPlanner.Controllers
 @model EscapeRoomPlanner.Data.EntityFramework.Models.Room
 
 @{
@@ -24,7 +25,7 @@
         </div>
 
         <div class="col-9" id="availableRoomsAsync">
-            <h2 style="text-align: center">Choose date!</h2>
+            <h3 style="text-align: center">Loading...</h3>
         </div>
     </div>
 
@@ -33,8 +34,7 @@
     <div class="row">
         <div class="col-12">
             <a asp-action="Index" asp-controller="Room" class="btn btn-secondary btn-sm p-2" style="width: 10rem">Back</a>
-            <a class="btn btn-success float-right js-new-reservation" style="width: 10rem">Next</a>
-            <a asp-action="New" asp-controller="Customer" class="btn btn-success float-right" style="width: 10rem">Next</a>
+            <button class="btn btn-success float-right js-new-reservation" style="width: 10rem" disabled>Next</button>
         </div>
     </div>
 </div>
@@ -44,27 +44,48 @@
 {
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datepicker').datepicker({});
+            $('.dateChange').datepicker({
+                format: 'dd.mm.yyyy'
+            }).datepicker("update", new Date);
 
-            $('.dateChange').on("change", function(e) {
-                $("#availableRoomsAsync").html("<h2 style='text-align: center'>Loading...</h2>");
-                const date = $('.dateChange').val();
-                getAvailableRooms(date);
-            });
+            const date = $('.dateChange').val();
+            setTimeout(function() {
+                    getAvailableRooms(date);
+                },
+                500);
 
-            var test = @Json.Serialize(Model);
+            $('.dateChange').on("change",
+                function(e) {
+                    $("#availableRoomsAsync").html("<h3 style='text-align: center'>Loading...</h3>");
+                    const date = $('.dateChange').val();
+                    setTimeout(function() {
+                            getAvailableRooms(date);
+                        },
+                        500);
+                });
 
             $("#roomReservation").on("click",
                 ".js-new-reservation",
                 function() {
-                    $.ajax({
-                        type: "POST",
-                        data: JSON.stringify(test),
-                        url: "/customer/new",
-                        contentType: "application/json"
-                    }).done(function(res) {
-                        $("#SomeDivToShowTheResult").html(res);
+                    const selectedDate = $('.dateChange').val();
+                    const selectedTime = $('.selected-room-time').attr("value");
+
+                    window.location = '@Url.Action(nameof(CustomerController.New), "Customer")/' + "@Model.Id" + "/" + selectedDate + "/" + selectedTime;
+                });
+
+            $("#roomReservation").on("click",
+                ".js-selected-room-hour",
+                function(e) {
+                    e.preventDefault();
+
+                    $("a").each(function() {
+                        $(this).parent().css("background-color", "");
                     });
+
+                    $(this).parent().css("background-color", "lightgreen");
+                    $('.js-new-reservation').prop("disabled", false);
+
+                    $(this).parent().addClass("selected-room-time");
                 });
         });
 
@@ -74,9 +95,10 @@
                 method: "GET",
                 success: function(result) {
                     $("#availableRoomsAsync").html(result);
+                    $('.js-new-reservation').prop("disabled", true);
                 },
                 error: function(error) {
-                    console.log("Nepodarilo sa nacitat data" + error);
+                    console.log("Sth wrong." + error);
                 }
             });
         }

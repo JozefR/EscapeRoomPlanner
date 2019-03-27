@@ -1,19 +1,10 @@
-/*
-1. Aplikace dále vystaví REST API. Toto bude mít dvě metody. První metoda bude přijímat http GET požadavek
-s parametrem - datum ve formátu dd.mm.yyyy. A bude vracet seznam všech místností a k nim informace o volných časech pro
-rezervace na dané datum a o otevírací době jednotlivých místností.
-
-2. Druhá bude analogická s tím rozdílem, že bude ty samé informace vracet ale pouze pro jednu místnost jejíž id bude předáno jako parametr.
-Obě metody budou vracet JSON jehož strukturu navrhněte samostatně stejně tak jako podobu url, na kterém bude REST API dostupné.
- */
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using EscapeRoomPlanner.Data.EntityFramework.Infrastructure;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
+using EscapeRoomPlanner.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EscapeRoomPlanner.Controllers.API
@@ -37,7 +28,12 @@ namespace EscapeRoomPlanner.Controllers.API
         {
             var rooms = await _roomRepository.GetAllRoomsAsync();
 
-            if (!DateTime.TryParse(selectedDate, out DateTime dateTime))
+            if (!DateTime.TryParseExact(
+                selectedDate,
+                "dd.MM.yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime dateTime))
             {
                 return BadRequest("Bad date format");
             };
@@ -70,22 +66,6 @@ namespace EscapeRoomPlanner.Controllers.API
             var availableHours = room.MapRoomResponse(dateTime);
 
             return Ok(availableHours);
-        }
-
-        /*
-         * Pre dany datum potrebujem kontrolovat cas rezervacii vzhladom na otvaracie hodiny miestnosti.
-         */
-        private void workingRoomTime()
-        {
-
-        }
-
-        /*
-         * Taktiez ci uz na konkretnu hodinu neexistuje ina rezervacia.
-         */
-        private void reservationOverlap()
-        {
-
         }
     }
 }

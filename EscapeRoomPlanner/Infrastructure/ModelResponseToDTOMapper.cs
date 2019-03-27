@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using EscapeRoomPlanner.Data.EntityFramework.Models;
 
-namespace EscapeRoomPlanner.Data.EntityFramework.Infrastructure
+namespace EscapeRoomPlanner.Infrastructure
 {
     public static class ModelResponseToDTOMapper
     {
@@ -14,7 +14,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Infrastructure
                 Description = room.Description,
                 OpeningTime = room.OpeningTime,
                 ClosingTime = room.ClosingTime,
-                Reservations = room.Reservations.Select(r =>
+                Reservations = room.Reservations?.Select(r =>
                     new EscapeRoomPlanner.DTO.Reservation
                     {
                         DateReservation = r.DateReservation,

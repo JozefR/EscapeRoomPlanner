@@ -23,7 +23,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
         public async Task<List<Room>> GetAllRoomsAsync()
         {
             var rooms = await _db.Room
-                .AsNoTracking()
                 .ToListAsync();
 
             return rooms;
@@ -32,7 +31,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
         public async Task<Room> GetRoomByIdAsync(int id)
         {
             var room = await _db.Room
-                .AsNoTracking()
+                .Include(x => x.Reservations)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             return room;

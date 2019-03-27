@@ -17,4 +17,9 @@
       <ProjectReference Include="..\EscapeRoomPlanner.DTO\EscapeRoomPlanner.DTO.csproj" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Folder Include="Services" />
+    </ItemGroup>
+
 </Project>
