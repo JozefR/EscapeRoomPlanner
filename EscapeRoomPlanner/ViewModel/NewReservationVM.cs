@@ -6,7 +6,9 @@ namespace EscapeRoomPlanner.ViewModel
     public class NewReservationVM
     {
         public int RoomId { get; set; }
+
         public string RoomName { get; set; }
+
         public string SelectedDate { get; set; }
 
         public int SelectedOpenTime { get; set; }

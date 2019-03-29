@@ -39,9 +39,11 @@
                     @Html.TextAreaFor(m => m.Description, new {@class = "form-control", @rows = "5"})
                     @Html.ValidationMessageFor(m => m.Description)
                 </div>
+                @Html.HiddenFor(m => m.RoomName)
                 @Html.HiddenFor(m => m.RoomId)
                 @Html.HiddenFor(m => m.SelectedDate)
                 @Html.HiddenFor(m => m.SelectedOpenTime)
+                @Html.HiddenFor(m => m.SelectedCloseTime)
                 @Html.AntiForgeryToken()
 
                 <button type="submit" class="btn btn-primary">Create booking</button>

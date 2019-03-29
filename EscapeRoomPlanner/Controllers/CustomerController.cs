@@ -1,7 +1,9 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using EscapeRoomPlanner.Data.EntityFramework.Models;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
 using EscapeRoomPlanner.ViewModel;
@@ -75,6 +77,11 @@ namespace EscapeRoomPlanner.Controllers
 
             var room = await _roomRepository.GetRoomByIdAsync(newReservationVm.RoomId);
 
+            if (!room.AvailableHours(dateTime).Select(x => x.Open).Contains(newReservationVm.SelectedOpenTime))
+            {
+                return RedirectToAction(nameof(RoomController.Details), "Room", new {id = newReservationVm.RoomId});
+            }
+
             var customer = new Customer
             {
                 FirstName = newReservationVm.FirstName,
@@ -98,6 +105,7 @@ namespace EscapeRoomPlanner.Controllers
             };
 
             await _customerReservationRepository.UpdateReservation(reservation);
+
             room.Reservations.Add(reservation);
 
             await _customerReservationRepository.Save();
