@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using EscapeRoomPlanner.Data.EntityFramework.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,13 +29,14 @@ namespace EscapeRoomPlanner.Data.EntityFramework
                 db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
 
-                loadData(db);
+                var data = LoadData();
 
+                db.AddRange(data);
                 db.SaveChanges();
             }
         }
 
-        private static void loadData(ApplicationDbContext db)
+        public static List<Room> LoadData()
         {
             string roomNames = "Living Room, Family Room, Formal Living Room, Kitchen, Pantry, Nook, Dining Room, Formal Dining, Closet, Walk-In Closet, Dressing Room, Bedroom, Nursery, Guest Bedroom, Guest Suite, Master Bath Room, Bath Room, Walk-In Shower, Sauna, Three-Quarter Bath, Half-Bath, Mud Room, Sitting Room, Coat Closet, Utility Room, Laundry Room, Sewing Room, Storage Room, Mechanical Room, Garage, RV Garage, Work Shop, Home Gym, Home Office, Study, Library, Drawing Room, Reading Room, Retreat, Den, Parlor, Game Room, Play Room, Media Room, Wet Bar, Butler's/Maid's Quarters, Butler's Kitchen, Butler's Pantry, Wine Cellar, Atrium, Lounge, Gallery, Kitchenette, Attic, Basement, Indoor Pool, Indoor Spa, Stair Tower, Porch, Deck, Garden, Outdoor Kitchen, Outdoor Bar, Outdoor Nook, Gazebo, Green House, Tool Shed, Pool, Spa, Fire Pit, Private Garden, Lawn, Bar-B-Que";
 
@@ -44,9 +46,9 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
             var names = roomNames.Split(",");
 
-            var numberOfrooms = random.Next(50);
+            var rooms = new List<Room>();
 
-            for (int i = 0; i < numberOfrooms; i++)
+            for (int i = 1; i < 50; i++)
             {
                 var open = random.Next(6, 16);
                 var close = random.Next(8);
@@ -57,14 +59,17 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
                 var room = new Room
                 {
+                    Id = i,
                     Name = names[random.Next(names.Length - 1)],
                     Description = string.Concat(descriptions),
                     OpeningTime = open,
                     ClosingTime = open + close,
                 };
 
-                db.Add(room);
+                rooms.Add(room);
             }
+
+            return rooms;
         }
     }
 }

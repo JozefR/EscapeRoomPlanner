@@ -27,7 +27,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
         [Range(12, 24)]
         public int ClosingTime { get; set; }
 
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
         public List<AvailableHour> AvailableHours(DateTime date)
         {

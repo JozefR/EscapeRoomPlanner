@@ -79,7 +79,7 @@ namespace EscapeRoomPlanner.Controllers
 
             if (!room.AvailableHours(dateTime).Select(x => x.Open).Contains(newReservationVm.SelectedOpenTime))
             {
-                return RedirectToAction(nameof(RoomController.Details), "Room", new {id = newReservationVm.RoomId});
+                return RedirectToAction(nameof(RoomController.Detail), "Room", new {id = newReservationVm.RoomId});
             }
 
             var customer = new Customer

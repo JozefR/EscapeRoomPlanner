@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeRoomPlanner.Data.Enti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeRoomPlanner.DTO", "EscapeRoomPlanner.DTO\EscapeRoomPlanner.DTO.csproj", "{28E44E3D-3EDF-4595-A326-5B3A2586568D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeRoomPlanner.Tests", "EscapeRoomPlanner.Tests\EscapeRoomPlanner.Tests.csproj", "{9775C9AE-2C56-4972-930B-32D91CCDAA13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{28E44E3D-3EDF-4595-A326-5B3A2586568D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28E44E3D-3EDF-4595-A326-5B3A2586568D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28E44E3D-3EDF-4595-A326-5B3A2586568D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9775C9AE-2C56-4972-930B-32D91CCDAA13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9775C9AE-2C56-4972-930B-32D91CCDAA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9775C9AE-2C56-4972-930B-32D91CCDAA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9775C9AE-2C56-4972-930B-32D91CCDAA13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

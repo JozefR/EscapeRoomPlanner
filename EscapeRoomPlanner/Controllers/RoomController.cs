@@ -30,7 +30,8 @@ namespace EscapeRoomPlanner.Controllers
             return View(rooms);
         }
 
-        public async Task<IActionResult> Details(int id)
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
         {
             var room = await _roomRepository.GetRoomByIdAsync(id);
 

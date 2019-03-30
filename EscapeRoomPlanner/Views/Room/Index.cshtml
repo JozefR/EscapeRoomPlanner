@@ -20,7 +20,7 @@
             @(room.Description.Length > 200 ? @room.Description.Substring(0, 197).Insert(197, "...") :
                 @room.Description.Length == 0 ? "No Description" : @room.Description)
           </p>
-          <a class="btn btn-success btn-sm" asp-action="Details" asp-controller="Room" asp-route-id="@room.Id">Book Now!</a>
+          <a class="btn btn-success btn-sm" asp-action="Detail" asp-controller="Room" asp-route-id="@room.Id">Book Now!</a>
         </div>
       </div>
     }

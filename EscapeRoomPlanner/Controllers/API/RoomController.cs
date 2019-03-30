@@ -51,8 +51,6 @@ namespace EscapeRoomPlanner.Controllers.API
         [HttpGet]
         public async Task<ActionResult> Get([FromRoute]int roomId, [FromRoute]string selectedDate)
         {
-            var room = await _roomRepository.GetRoomByIdAsync(roomId);
-
             if (!DateTime.TryParseExact(
                 selectedDate,
                 "dd.MM.yyyy",
@@ -62,6 +60,13 @@ namespace EscapeRoomPlanner.Controllers.API
             {
                 return BadRequest("Bad date format");
             };
+
+            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+
+            if (room == null)
+            {
+                return new NotFoundResult();
+            }
 
             var availableHours = room.MapRoomResponse(dateTime);
 
