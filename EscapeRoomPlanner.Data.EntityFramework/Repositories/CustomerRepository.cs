@@ -37,5 +37,13 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
 
             return customer;
         }
+
+        public async Task<Customer> FindCustomerByEmailAsync(string mail)
+        {
+            var customer = await _db.Customer
+                .SingleOrDefaultAsync(x => x.Email == mail);
+
+            return customer;
+        }
     }
 }

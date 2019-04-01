@@ -27,11 +27,16 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
 
-                    b.Property<string>("SecondName");
+                    b.Property<string>("SecondName")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 
@@ -71,9 +76,13 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
 
                     b.Property<int>("ClosingTime");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<int>("OpeningTime");
 
@@ -84,7 +93,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
 
             modelBuilder.Entity("EscapeRoomPlanner.Data.EntityFramework.Models.Reservation", b =>
                 {
-                    b.HasOne("EscapeRoomPlanner.Data.EntityFramework.Models.Customer", "Customer")
+                    b.HasOne("EscapeRoomPlanner.Data.EntityFramework.Models.Customer")
                         .WithMany("Reservations")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);

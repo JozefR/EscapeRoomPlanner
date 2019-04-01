@@ -11,18 +11,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EscapeRoomPlanner.Controllers
 {
-    public class CustomerController : Controller
+    public class ReservationController : Controller
     {
-        private readonly ICustomerRepository _CustomerRepository;
         private readonly IRoomRepository _roomRepository;
         private readonly ICustomerReservationRepository _customerReservationRepository;
 
-        public CustomerController(
-            ICustomerRepository customerRepository,
+        public ReservationController(
             ICustomerReservationRepository customerReservationRepository,
             IRoomRepository roomRepository)
         {
-            _CustomerRepository = customerRepository;
             _customerReservationRepository = customerReservationRepository;
             _roomRepository = roomRepository;
         }
@@ -79,7 +76,7 @@ namespace EscapeRoomPlanner.Controllers
 
             if (!room.AvailableHours(dateTime).Select(x => x.Open).Contains(newReservationVm.SelectedOpenTime))
             {
-                ViewData["ErrorMessage"] = "Sorry the room for chosen time was already reserved.";
+                TempData["ErrorMessage"] = "Sorry the room for chosen time was already reserved.";
 
                 return RedirectToAction(nameof(RoomController.Detail), "Room", new {id = newReservationVm.RoomId});
             }
@@ -92,7 +89,7 @@ namespace EscapeRoomPlanner.Controllers
                 PhoneNumber = newReservationVm.Email,
             };
 
-            await _customerReservationRepository.UpdateCustomer(customer);
+            await _customerReservationRepository.AddCustomer(customer);
 
             var time = new TimeSpan(newReservationVm.SelectedOpenTime,0,0);
             var newDate = dateTime.Add(time);
@@ -106,7 +103,7 @@ namespace EscapeRoomPlanner.Controllers
                 RoomId = newReservationVm.RoomId
             };
 
-            await _customerReservationRepository.UpdateReservation(reservation);
+            await _customerReservationRepository.AddReservation(reservation);
 
             room.Reservations.Add(reservation);
 

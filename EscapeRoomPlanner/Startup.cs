@@ -32,7 +32,7 @@ namespace EscapeRoomPlanner
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.ConfigureDbConnections();
+            services.ConfigureDbConnections(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

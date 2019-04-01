@@ -2,6 +2,7 @@ using System;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EscapeRoomPlanner.Data.EntityFramework
@@ -9,13 +10,12 @@ namespace EscapeRoomPlanner.Data.EntityFramework
     // TODO: add configurations to appSettings.json
     public static class EntityStartupExtensions
     {
-        public static IServiceCollection ConfigureDbConnections(this IServiceCollection services)
+        public static IServiceCollection ConfigureDbConnections(this IServiceCollection services,
+            IConfiguration configuration)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=escapeRoomPlanner.db;Trusted_Connection=True;ConnectRetryCount=0";
-
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(connection);
+                options.UseSqlServer(DbSettings.LocalMsSqlConnection);
             });
 
             services.AddTransient<IDataSeeder, DataSeeder>();
@@ -34,9 +34,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework
             {
                 var dbContextBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-                var connection = @"Server=(localdb)\mssqllocaldb;Database=escapeRoomPlanner.db;Trusted_Connection=True;ConnectRetryCount=0";
-
-                dbContextBuilder.UseSqlServer(connection);
+                dbContextBuilder.UseSqlServer(DbSettings.LocalMsSqlConnection);
 
                 return new ApplicationDbContext(dbContextBuilder.Options);
             }
