@@ -79,6 +79,8 @@ namespace EscapeRoomPlanner.Controllers
 
             if (!room.AvailableHours(dateTime).Select(x => x.Open).Contains(newReservationVm.SelectedOpenTime))
             {
+                ViewData["ErrorMessage"] = "Sorry the room for chosen time was already reserved.";
+
                 return RedirectToAction(nameof(RoomController.Detail), "Room", new {id = newReservationVm.RoomId});
             }
 

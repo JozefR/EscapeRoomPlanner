@@ -17,4 +17,10 @@
       <ProjectReference Include="..\EscapeRoomPlanner.DTO\EscapeRoomPlanner.DTO.csproj" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Reservation\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Reservation\Index.cshtml" />
+    </ItemGroup>
+
 </Project>

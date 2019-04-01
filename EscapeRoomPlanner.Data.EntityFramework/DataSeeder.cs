@@ -59,7 +59,6 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
                 var room = new Room
                 {
-                    Id = i,
                     Name = names[random.Next(names.Length - 1)],
                     Description = string.Concat(descriptions),
                     OpeningTime = open,

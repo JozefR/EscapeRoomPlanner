@@ -1,3 +1,5 @@
+@using EscapeRoomPlanner.Controllers.API
+@using RoomController = EscapeRoomPlanner.Controllers.RoomController
 @model System.Collections.Generic.List<EscapeRoomPlanner.Data.EntityFramework.Models.Room>
 
 @{
@@ -5,7 +7,14 @@
   Layout = "_Layout";
 }
 
-<h2>Escape Rooms</h2>
+<div class="row">
+  <div class="col-12">
+    <h2>Escape Rooms</h2>
+    <button class="btn btn-warning btn-sm js-room-reseed" style="width: 10rem">Reseed</button>
+  </div>
+</div>
+
+<br/>
 
 <div class="card-columns">
 
@@ -30,3 +39,17 @@
     }
   }
 </div>
+
+@section Scripts
+{
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".js-room-reseed").on("click",
+        function() {
+
+          window.location = '@Url.Action(nameof(RoomController.Index), "Room", new { seed = true})';
+        });
+    })
+
+  </script>
+}

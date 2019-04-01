@@ -21,9 +21,12 @@ namespace EscapeRoomPlanner.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool seed = false)
         {
-            //_dataSeeder.SeedData();
+            if (seed)
+            {
+                _dataSeeder.SeedData();
+            }
 
             var rooms = await _roomRepository.GetAllRoomsAsync();
 
