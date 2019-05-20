@@ -13,12 +13,12 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
 
     public class CustomerRepository : ICustomerRepository
     {
-        private ApplicationDbContext _db { get; }
-
         public CustomerRepository(ApplicationDbContext db)
         {
             _db = db;
         }
+
+        private ApplicationDbContext _db { get; }
 
         public async Task<List<Customer>> GetAllCustomersAsync()
         {

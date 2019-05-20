@@ -1,53 +1,52 @@
-@using EscapeRoomPlanner.Controllers.API
-@using RoomController = EscapeRoomPlanner.Controllers.RoomController
-@model System.Collections.Generic.List<EscapeRoomPlanner.Data.EntityFramework.Models.Room>
+@using EscapeRoomPlanner.Controllers
+@model List<EscapeRoomPlanner.Data.EntityFramework.Models.Room>
 
 @{
-  ViewBag.Title = "title";
-  Layout = "_Layout";
+    ViewBag.Title = "title";
+    Layout = "_Layout";
 }
 
 <div class="row">
-  <div class="col-12">
-    <h2>Escape Rooms</h2>
-    <button class="btn btn-warning btn-sm js-room-reseed" style="width: 10rem">Reseed</button>
-  </div>
+    <div class="col-12">
+        <h2>Escape Rooms</h2>
+        <button class="btn btn-warning btn-sm js-room-reseed" style="width: 10rem">Reseed</button>
+    </div>
 </div>
 
 <br/>
 
 <div class="card-columns">
 
-  @foreach (var room in @Model)
-  {
-    if (Model.Count != 0)
+    @foreach (var room in Model)
     {
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">@room.Name</h5>
-          <p class="card-text" title="@room.Description">
-            @(room.Description.Length > 200 ? @room.Description.Substring(0, 197).Insert(197, "...") :
-                @room.Description.Length == 0 ? "No Description" : @room.Description)
-          </p>
-          <a class="btn btn-success btn-sm" asp-action="Detail" asp-controller="Room" asp-route-id="@room.Id">Book Now!</a>
-        </div>
-      </div>
+        if (Model.Count != 0)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@room.Name</h5>
+                    <p class="card-text" title="@room.Description">
+                        @(room.Description.Length > 200 ? room.Description.Substring(0, 197).Insert(197, value: "...") :
+                              room.Description.Length == 0 ? "No Description" : room.Description)
+                    </p>
+                    <a class="btn btn-success btn-sm" asp-action="Detail" asp-controller="Room" asp-route-id="@room.Id">Book Now!</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h3>No rooms found!</h3>
+        }
     }
-    else
-    {
-      <h3>No rooms found!</h3>
-    }
-  }
 </div>
 
 @section Scripts
 {
-  <script type="text/javascript">
+    <script type="text/javascript">
     $(document).ready(function() {
       $(".js-room-reseed").on("click",
         function() {
 
-          window.location = '@Url.Action(nameof(RoomController.Index), "Room", new { seed = true})';
+          window.location = '@Url.Action(nameof(RoomController.Index), controller: "Room", values: new {seed = true})';
         });
     })
 

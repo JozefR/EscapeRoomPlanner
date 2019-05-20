@@ -12,7 +12,8 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation(name: "SqlServer:ValueGenerationStrategy",
+                            value: SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     OpeningTime = table.Column<int>(nullable: false),
@@ -20,7 +21,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.PrimaryKey(name: "PK_Rooms", columns: x => x.Id);
                 });
         }
 

@@ -1,9 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using EscapeRoomPlanner.Data.EntityFramework.Models;
 using EscapeRoomPlanner.Data.EntityFramework.Repositories;
 using EscapeRoomPlanner.ViewModel;
@@ -13,8 +11,8 @@ namespace EscapeRoomPlanner.Controllers
 {
     public class ReservationController : Controller
     {
-        private readonly IRoomRepository _roomRepository;
         private readonly ICustomerReservationRepository _customerReservationRepository;
+        private readonly IRoomRepository _roomRepository;
 
         public ReservationController(
             ICustomerReservationRepository customerReservationRepository,
@@ -24,37 +22,35 @@ namespace EscapeRoomPlanner.Controllers
             _roomRepository = roomRepository;
         }
 
-        [Route("{roomId}/{selectedDate}/{selectedTime}")]
+        [Route(template: "{roomId}/{selectedDate}/{selectedTime}")]
         [HttpGet]
-        public async Task<IActionResult> New([FromRoute]int roomId, [FromRoute]string selectedDate, [FromRoute]int selectedTime)
+        public async Task<IActionResult> New([FromRoute] int roomId, [FromRoute] string selectedDate,
+            [FromRoute] int selectedTime)
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
-            if (room == null)
-            {
-                return BadRequest();
-            }
+            if (room == null) return BadRequest();
 
             if (!DateTime.TryParseExact(
                 selectedDate,
-                "dd.MM.yyyy",
-                CultureInfo.CurrentCulture,
-                DateTimeStyles.None,
-                out DateTime dateTime))
+                format: "dd.MM.yyyy",
+                provider: CultureInfo.CurrentCulture,
+                style: DateTimeStyles.None,
+                result: out var dateTime))
             {
-                return BadRequest("Bad date format");
-            };
+                return BadRequest(error: "Bad date format");
+            }
 
             var newReservation = new NewReservationVM
             {
                 RoomId = room.Id,
                 RoomName = room.Name,
-                SelectedDate = dateTime.ToString("dd.MM.yyyy"),
+                SelectedDate = dateTime.ToString(format: "dd.MM.yyyy"),
                 SelectedOpenTime = selectedTime,
-                SelectedCloseTime = selectedTime + 1,
+                SelectedCloseTime = selectedTime + 1
             };
 
-            return View("Save", newReservation);
+            return View(viewName: "Save", model: newReservation);
         }
 
         [HttpPost]
@@ -62,23 +58,21 @@ namespace EscapeRoomPlanner.Controllers
         {
             DateTime.TryParseExact(
                 newReservationVm.SelectedDate,
-                "dd.MM.yyyy",
-                CultureInfo.CurrentCulture,
-                DateTimeStyles.None,
-                out DateTime dateTime);
+                format: "dd.MM.yyyy",
+                provider: CultureInfo.CurrentCulture,
+                style: DateTimeStyles.None,
+                result: out var dateTime);
 
-            if (!ModelState.IsValid)
-            {
-                return View("Save", newReservationVm);
-            }
+            if (!ModelState.IsValid) return View(viewName: "Save", model: newReservationVm);
 
             var room = await _roomRepository.GetRoomByIdAsync(newReservationVm.RoomId);
 
             if (!room.AvailableHours(dateTime).Select(x => x.Open).Contains(newReservationVm.SelectedOpenTime))
             {
-                TempData["ErrorMessage"] = "Sorry the room for chosen time was already reserved.";
+                TempData[key: "ErrorMessage"] = "Sorry the room for chosen time was already reserved.";
 
-                return RedirectToAction(nameof(RoomController.Detail), "Room", new {id = newReservationVm.RoomId});
+                return RedirectToAction(nameof(RoomController.Detail), controllerName: "Room",
+                    routeValues: new {id = newReservationVm.RoomId});
             }
 
             var customer = new Customer
@@ -86,12 +80,12 @@ namespace EscapeRoomPlanner.Controllers
                 FirstName = newReservationVm.FirstName,
                 SecondName = newReservationVm.SecondName,
                 Email = newReservationVm.Email,
-                PhoneNumber = newReservationVm.Email,
+                PhoneNumber = newReservationVm.Email
             };
 
             await _customerReservationRepository.AddCustomer(customer);
 
-            var time = new TimeSpan(newReservationVm.SelectedOpenTime,0,0);
+            var time = new TimeSpan(newReservationVm.SelectedOpenTime, 0, 0);
             var newDate = dateTime.Add(time);
 
             var reservation = new Reservation
@@ -109,7 +103,7 @@ namespace EscapeRoomPlanner.Controllers
 
             await _customerReservationRepository.Save();
 
-            return RedirectToAction(nameof(RoomController.Index), "Room");
+            return RedirectToAction(nameof(RoomController.Index), controllerName: "Room");
         }
     }
 }

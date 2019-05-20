@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using EscapeRoomPlanner.DTO;
 
@@ -34,7 +33,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
             var hourInterval = ClosingTime - OpeningTime;
             var availableHours = new List<AvailableHour>();
 
-            for (int i = 0; i < hourInterval; i++)
+            for (var i = 0; i < hourInterval; i++)
             {
                 var open = OpeningTime + i;
                 var close = OpeningTime + i + 1;
@@ -43,10 +42,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Models
                     .Where(x => x.DateReservation.Date == date.Date)
                     .Select(x => x.DateReservation.Hour);
 
-                if (!alreadyReserved.Contains(open))
-                {
-                    availableHours.Add(new AvailableHour(open, close));
-                }
+                if (!alreadyReserved.Contains(open)) availableHours.Add(new AvailableHour(open, close));
             }
 
             return availableHours;

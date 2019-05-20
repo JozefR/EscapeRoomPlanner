@@ -8,7 +8,7 @@
 
 <h2>@Model.Name</h2>
 <p>@Model.Description</p>
-<h4 style="color: red">@TempData["ErrorMessage"]</h4>
+<h4 style="color: red">@TempData[key: "ErrorMessage"]</h4>
 <hr>
 
 <div class="col-12" id="roomReservation">
@@ -71,7 +71,7 @@
                     const selectedDate = $('.dateChange').val();
                     const selectedTime = $('.selected-room-time').attr("value");
 
-                    window.location = '@Url.Action(nameof(ReservationController.New), "Reservation")/' + "@Model.Id" + "/" + selectedDate + "/" + selectedTime;
+                    window.location = '@Url.Action(nameof(ReservationController.New), controller: "Reservation")/' + "@Model.Id" + "/" + selectedDate + "/" + selectedTime;
                 });
 
             $("#roomReservation").on("click",

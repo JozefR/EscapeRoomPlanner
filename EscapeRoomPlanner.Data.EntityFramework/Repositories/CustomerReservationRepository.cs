@@ -12,7 +12,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
 
     public class CustomerReservationRepository : ICustomerReservationRepository
     {
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
 
         public CustomerReservationRepository(ApplicationDbContext db)
         {

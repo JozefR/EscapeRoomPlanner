@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EscapeRoomPlanner.Tests.Integration
 {
-    public class IntegrityFactory<TStartup>: WebApplicationFactory<TStartup> where TStartup : class
+    public class IntegrityFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -23,7 +23,7 @@ namespace EscapeRoomPlanner.Tests.Integration
                 // database for testing.
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    options.UseInMemoryDatabase(databaseName: "InMemoryDbForTesting");
                     options.UseInternalServiceProvider(serviceProvider);
                 });
 
@@ -49,12 +49,11 @@ namespace EscapeRoomPlanner.Tests.Integration
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, $"An error occurred seeding the " +
+                        logger.LogError(ex, "An error occurred seeding the " +
                                             "database with test messages. Error: {ex.Message}");
                     }
                 }
             });
         }
     }
-
 }

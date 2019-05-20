@@ -10,19 +10,19 @@ namespace EscapeRoomPlanner.Tests.Unite
     {
         public class RoomApiController
         {
-            private readonly Mock<IRoomRepository> _roomRepository;
-
             public RoomApiController()
             {
                 _roomRepository = new Mock<IRoomRepository>();
             }
+
+            private readonly Mock<IRoomRepository> _roomRepository;
 
             [Fact]
             public void RoomGet_BadDateFormat_ReturnBadRequest()
             {
                 var controller = new RoomController(_roomRepository.Object);
 
-                var result = controller.Get(1, "BadDateFormat").Result;
+                var result = controller.Get(1, selectedDate: "BadDateFormat").Result;
 
                 Assert.IsType<BadRequestObjectResult>(result);
             }

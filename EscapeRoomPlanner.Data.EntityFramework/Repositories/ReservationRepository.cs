@@ -11,12 +11,12 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Repositories
 
     public class ReservationRepository : IReservationRepository
     {
-        private ApplicationDbContext _db { get; }
-
         public ReservationRepository(ApplicationDbContext db)
         {
             _db = db;
         }
+
+        private ApplicationDbContext _db { get; }
 
         public async Task<Reservation> GetReservationByIdAsync(int id)
         {

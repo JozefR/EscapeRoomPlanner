@@ -38,21 +38,23 @@ namespace EscapeRoomPlanner.Data.EntityFramework
 
         public static List<Room> LoadData()
         {
-            string roomNames = "Living Room, Family Room, Formal Living Room, Kitchen, Pantry, Nook, Dining Room, Formal Dining, Closet, Walk-In Closet, Dressing Room, Bedroom, Nursery, Guest Bedroom, Guest Suite, Master Bath Room, Bath Room, Walk-In Shower, Sauna, Three-Quarter Bath, Half-Bath, Mud Room, Sitting Room, Coat Closet, Utility Room, Laundry Room, Sewing Room, Storage Room, Mechanical Room, Garage, RV Garage, Work Shop, Home Gym, Home Office, Study, Library, Drawing Room, Reading Room, Retreat, Den, Parlor, Game Room, Play Room, Media Room, Wet Bar, Butler's/Maid's Quarters, Butler's Kitchen, Butler's Pantry, Wine Cellar, Atrium, Lounge, Gallery, Kitchenette, Attic, Basement, Indoor Pool, Indoor Spa, Stair Tower, Porch, Deck, Garden, Outdoor Kitchen, Outdoor Bar, Outdoor Nook, Gazebo, Green House, Tool Shed, Pool, Spa, Fire Pit, Private Garden, Lawn, Bar-B-Que";
+            var roomNames =
+                "Living Room, Family Room, Formal Living Room, Kitchen, Pantry, Nook, Dining Room, Formal Dining, Closet, Walk-In Closet, Dressing Room, Bedroom, Nursery, Guest Bedroom, Guest Suite, Master Bath Room, Bath Room, Walk-In Shower, Sauna, Three-Quarter Bath, Half-Bath, Mud Room, Sitting Room, Coat Closet, Utility Room, Laundry Room, Sewing Room, Storage Room, Mechanical Room, Garage, RV Garage, Work Shop, Home Gym, Home Office, Study, Library, Drawing Room, Reading Room, Retreat, Den, Parlor, Game Room, Play Room, Media Room, Wet Bar, Butler's/Maid's Quarters, Butler's Kitchen, Butler's Pantry, Wine Cellar, Atrium, Lounge, Gallery, Kitchenette, Attic, Basement, Indoor Pool, Indoor Spa, Stair Tower, Porch, Deck, Garden, Outdoor Kitchen, Outdoor Bar, Outdoor Nook, Gazebo, Green House, Tool Shed, Pool, Spa, Fire Pit, Private Garden, Lawn, Bar-B-Que";
 
-            string roomDescriptions = "Our king size four poster provides views over landscaped gardens. It has a seating area, ample storage, digital safe, minibar and luxurious duck down bedding. Our Deluxe Twin/Large Double also provides views over landscaped gardens. It has a seating area, digital safe, minibar and luxurious duck down bedding. This room can be configured with either 2 single beds or zip and linked to provide a large double bed. As our smallest budget rooms, the Compact bedrooms are suited for single occupancy or short-stay double occupancy as they have limited space and storage. All our guestrooms are elegantly furnished with handmade furniture include luxury en-suite facilities with complimentary amenities pack, flat screen LCD TV, tea/coffee making facilities, fan, hairdryer and the finest pure white linen and towels. Rooms were spacious, comfortable and spotlessly clean and free wi-fi. We had the four poster room which had lovely views over the immaculate gardens.";
+            var roomDescriptions =
+                "Our king size four poster provides views over landscaped gardens. It has a seating area, ample storage, digital safe, minibar and luxurious duck down bedding. Our Deluxe Twin/Large Double also provides views over landscaped gardens. It has a seating area, digital safe, minibar and luxurious duck down bedding. This room can be configured with either 2 single beds or zip and linked to provide a large double bed. As our smallest budget rooms, the Compact bedrooms are suited for single occupancy or short-stay double occupancy as they have limited space and storage. All our guestrooms are elegantly furnished with handmade furniture include luxury en-suite facilities with complimentary amenities pack, flat screen LCD TV, tea/coffee making facilities, fan, hairdryer and the finest pure white linen and towels. Rooms were spacious, comfortable and spotlessly clean and free wi-fi. We had the four poster room which had lovely views over the immaculate gardens.";
 
             var random = new Random();
 
-            var names = roomNames.Split(",");
+            var names = roomNames.Split(separator: ",");
 
             var rooms = new List<Room>();
 
-            for (int i = 1; i < 50; i++)
+            for (var i = 1; i < 50; i++)
             {
                 var open = random.Next(6, 16);
                 var close = random.Next(8);
-                var descriptions = roomDescriptions.Split(".")
+                var descriptions = roomDescriptions.Split(separator: ".")
                     .OrderBy(item => random.Next(roomDescriptions.Length))
                     .Take(random.Next(1, 4))
                     .ToList();
@@ -62,7 +64,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework
                     Name = names[random.Next(names.Length - 1)],
                     Description = string.Concat(descriptions),
                     OpeningTime = open,
-                    ClosingTime = open + close,
+                    ClosingTime = open + close
                 };
 
                 rooms.Add(room);

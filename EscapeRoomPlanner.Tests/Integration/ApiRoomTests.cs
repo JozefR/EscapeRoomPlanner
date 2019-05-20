@@ -1,12 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Net.Http;
-using EscapeRoomPlanner.Data.EntityFramework;
-using EscapeRoomPlanner.Data.EntityFramework.Models;
+using EscapeRoomPlanner.DTO;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Data.OData.Query.SemanticAst;
 using Xunit;
 
 namespace EscapeRoomPlanner.Tests.Integration
@@ -17,7 +12,7 @@ namespace EscapeRoomPlanner.Tests.Integration
 
         public RoomTests()
         {
-            IntegrityFactory<Startup> factory = new IntegrityFactory<Startup>();
+            var factory = new IntegrityFactory<Startup>();
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions
             {
                 AllowAutoRedirect = false
@@ -32,7 +27,7 @@ namespace EscapeRoomPlanner.Tests.Integration
 
             response.EnsureSuccessStatusCode();
 
-            var rooms = response.Content.ReadAsAsync<List<DTO.Room>>().Result;
+            var rooms = response.Content.ReadAsAsync<List<Room>>().Result;
 
             foreach (var room in rooms)
             {

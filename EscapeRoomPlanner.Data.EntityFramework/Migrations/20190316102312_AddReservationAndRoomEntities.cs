@@ -13,7 +13,8 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation(name: "SqlServer:ValueGenerationStrategy",
+                            value: SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(nullable: true),
                     SecondName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -21,7 +22,7 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey(name: "PK_Customers", columns: x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,14 +30,15 @@ namespace EscapeRoomPlanner.Data.EntityFramework.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation(name: "SqlServer:ValueGenerationStrategy",
+                            value: SqlServerValueGenerationStrategy.IdentityColumn),
                     DateReservation = table.Column<DateTime>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.PrimaryKey(name: "PK_Reservations", columns: x => x.Id);
                 });
         }
 

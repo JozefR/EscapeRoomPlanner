@@ -1,5 +1,3 @@
-using System;
-
 namespace EscapeRoomPlanner.Models
 {
     public class ErrorViewModel

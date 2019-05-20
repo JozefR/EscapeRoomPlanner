@@ -9,14 +9,14 @@ namespace EscapeRoomPlanner.Tests.Unite
 {
     public class RoomControllerTests
     {
-        private readonly Mock<IRoomRepository> _roomRepository;
-        private readonly Mock<IDataSeeder> _dataSeeder;
-
         public RoomControllerTests()
         {
             _dataSeeder = new Mock<IDataSeeder>();
             _roomRepository = new Mock<IRoomRepository>();
         }
+
+        private readonly Mock<IRoomRepository> _roomRepository;
+        private readonly Mock<IDataSeeder> _dataSeeder;
 
         [Fact]
         public void RoomDetail_IdIsZero_ReturnNotFound()

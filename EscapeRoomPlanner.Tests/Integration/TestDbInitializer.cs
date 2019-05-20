@@ -7,10 +7,7 @@ namespace EscapeRoomPlanner.Tests.Integration
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            if (context.Room.Any())
-            {
-                return;
-            }
+            if (context.Room.Any()) return;
 
             var roomData = DataSeeder.LoadData();
 

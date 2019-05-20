@@ -6,9 +6,8 @@ namespace EscapeRoomPlanner.Data.EntityFramework
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-                :base(options)
+            : base(options)
         {
-
         }
 
         public DbSet<Room> Room { get; set; }

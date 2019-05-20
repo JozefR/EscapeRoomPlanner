@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using EscapeRoomPlanner.Data.EntityFramework.Models;
 
 namespace EscapeRoomPlanner.ViewModel
 {
@@ -30,7 +29,7 @@ namespace EscapeRoomPlanner.ViewModel
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression("^\\+\\d{3}-\\d{3}-\\d{3}$")]
+        [RegularExpression(pattern: "^\\+\\d{3}-\\d{3}-\\d{3}$")]
         public string PhoneNumber { get; set; }
     }
 }
